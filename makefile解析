@@ -1,0 +1,10 @@
+src = $(wildcard *.c)    		//获取当前目录所有.c文件
+target = $(patsubst %.c, %, $(src))  	//将.c文件的后缀.c去除 生成可执行文件的文件名
+inc_path = /usr/include/mysql/        	//include 路径
+lib_path = /usr/lib/x86_64-linux-gnu/	//lib 路径
+all: $(target)       			
+%:%.c
+	gcc $< -o $@ -I$(inc_path) -L$(lib_path) -lmysqlclient -lstdc++ -ldl -lrt
+clean:					//清理
+	-rm -rf $(target)
+.PHONY: all clean                	//all clean 属于尾目标
